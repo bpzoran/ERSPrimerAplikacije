@@ -1,1 +1,5 @@
 *.user
+ECommerce/Solution/.vs/*
+bin
+obj
+Properties
