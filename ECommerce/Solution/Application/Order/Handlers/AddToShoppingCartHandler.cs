@@ -60,7 +60,7 @@ namespace Application.Order.Handlers
                 if (result.Success)
                 {
                     customer.ShoppingCart.Add(new ProductItem(product, quantity));
-                    CustomerUpdateCommand.Update(customer);
+                    CustomerUpdateCommand.Execute(customer);
                 }
             }
             result.ResultObject = customer.ShoppingCart;

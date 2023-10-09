@@ -4,6 +4,6 @@ namespace Application.Common.Commands
 {
     public interface IDeleteCommand<TEntity> where TEntity : Entity
     {
-        bool Delete(object id);
+        bool Execute(object id);
     }
 }

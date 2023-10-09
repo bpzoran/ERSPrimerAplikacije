@@ -24,11 +24,11 @@ namespace BusinessImpl.Stock
 
         public void WithdrawProduct(ProductEntity product, float quantity, LocalStockEntity localStock, SupplierStockEntity supplierStock, out float missingQuantity, Result result)
         {
-            ProductInsertIfNotExistsCommand.InsertIfNotExists(product);
+            ProductInsertIfNotExistsCommand.Execute(product);
             WithdrawProductUpdateStock(product, quantity, localStock, out missingQuantity);
             if (result.Success)
             {
-                if (!StockUpdateCommand.Update(localStock))
+                if (!StockUpdateCommand.Execute(localStock))
                 {
                     result.Log(LogLevel.Error, "Unsuccesful stock update");
                 }

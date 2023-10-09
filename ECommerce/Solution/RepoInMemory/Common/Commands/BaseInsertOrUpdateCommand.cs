@@ -17,7 +17,7 @@ namespace RepoInMemory.Common.Commands
             this.updateCommand = updateCommand;
         }
 
-        public bool InsertOrUpdate(TEntity entity)
+        public bool Execute(TEntity entity)
         {
             TEntity t = FindById(entity.GetId());
             if (t == null)
@@ -38,12 +38,12 @@ namespace RepoInMemory.Common.Commands
 
         private bool Insert(TEntity entity)
         {
-            return insertCommand.Insert(entity);
+            return insertCommand.Execute(entity);
         }
 
         private bool Update(TEntity entity)
         {
-            return updateCommand.Update(entity);
+            return updateCommand.Execute(entity);
         }
     }
 }

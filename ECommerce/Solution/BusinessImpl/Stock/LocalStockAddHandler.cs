@@ -24,9 +24,9 @@ namespace BusinessImpl.Stock
             {
                 throw new ArgumentException("Invalid type");
             }
-            ProductInsertIfNotExistsCommand.InsertIfNotExists(product);
+            ProductInsertIfNotExistsCommand.Execute(product);
             AddProductUpdateStock(product, stock, productQuantity);
-            StockUpdateCommand.Update((LocalStockEntity)stock);
+            StockUpdateCommand.Execute((LocalStockEntity)stock);
         }
     }
 }

@@ -15,7 +15,7 @@ namespace RepoInMemory.Common.Commands
             this.insertCommand = insertCommand;
         }
 
-        public bool InsertIfNotExists(TEntity entity)
+        public bool Execute(TEntity entity)
         {
             TEntity t = FindById(entity.GetId());
             if (t == null)
@@ -32,7 +32,7 @@ namespace RepoInMemory.Common.Commands
 
         private bool Insert(TEntity entity)
         {
-            return this.insertCommand.Insert(entity);
+            return this.insertCommand.Execute(entity);
         }
     }
 }

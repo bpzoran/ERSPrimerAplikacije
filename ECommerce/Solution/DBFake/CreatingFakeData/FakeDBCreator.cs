@@ -46,22 +46,22 @@ namespace DBFake.FakeDBCreator
             commonRepo.ClearAll();
             SupplierEntity supplier = NewSupplier("1", "Nike");
 
-            customerInsertCommand.Insert(NewCustomer("1", "John", "Smith", PhoneNumber, "New York", "The street", "2/4"));
-            customerInsertCommand.Insert(NewCustomer("2", "Zoran", "Jankovic", PhoneNumber, "Novi Sad", "Toplice Milana", "1"));
-            customerInsertCommand.Insert(NewCustomer("3", "Aleksandar", "Mitrovic", PhoneNumber, "London", "North street", "1"));
+            customerInsertCommand.Execute(NewCustomer("1", "John", "Smith", PhoneNumber, "New York", "The street", "2/4"));
+            customerInsertCommand.Execute(NewCustomer("2", "Zoran", "Jankovic", PhoneNumber, "Novi Sad", "Toplice Milana", "1"));
+            customerInsertCommand.Execute(NewCustomer("3", "Aleksandar", "Mitrovic", PhoneNumber, "London", "North street", "1"));
 
-            productInsertCommand.Insert(NewProduct("1", "Shoes", Price, supplier));
-            productInsertCommand.Insert(NewProduct("2", "Sweat Suit", Price, supplier));
-            productInsertCommand.Insert(NewProduct("3", "T-Shirt", Price, supplier));
+            productInsertCommand.Execute(NewProduct("1", "Shoes", Price, supplier));
+            productInsertCommand.Execute(NewProduct("2", "Sweat Suit", Price, supplier));
+            productInsertCommand.Execute(NewProduct("3", "T-Shirt", Price, supplier));
 
             LocalStockEntity localStock = NewLocalStock(1, "Main stock", "1st street 3", true);
             List<ProductEntity> allProducts = productGetListQuery.GetList();
             allProducts.ForEach(t => localStock.ProductStocks.Add(new ProductStock(t, localStock, ProductQuantityOnStock)));
-            localStockInsertCommand.Insert(localStock);
+            localStockInsertCommand.Execute(localStock);
             
             SupplierStockEntity supplierStock = NewSupplierStock(1, "Nike B2B", "http:\\nike?product", true);
             supplierStock.Supplier = supplier;
-            supplierStockInsertCommand.Insert(supplierStock);
+            supplierStockInsertCommand.Execute(supplierStock);
         }
 
         public void InsertShoppingCarts()

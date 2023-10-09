@@ -6,7 +6,7 @@ namespace RepoInMemory.Common.Commands
 {
     public class BaseUpdateCommand<TEntity> : IUpdateCommand<TEntity> where TEntity : Entity
     {
-        public bool Update(TEntity entityToUpdate)
+        public bool Execute(TEntity entityToUpdate)
         {
             object id = entityToUpdate.GetId();
             if (InMemoryDatabase.Instance.Set<TEntity>().TryGetValue(id, out TEntity e))

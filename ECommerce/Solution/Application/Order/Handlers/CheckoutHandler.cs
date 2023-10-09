@@ -29,7 +29,7 @@ namespace Application.Order.Handlers
             this.OrderCreator = orderCreator;
             this.ProceedingData = proceedingData;
             this.customer = new CustomerEntity(ProceedingData);
-            CustomerInsertOrUpdateCommand.InsertOrUpdate(this.customer);
+            CustomerInsertOrUpdateCommand.Execute(this.customer);
             this.TimeAssigner = timeAssigner;            
         }
 
@@ -43,13 +43,13 @@ namespace Application.Order.Handlers
                 return result;
             }
             OrderEntity order = OrderCreator.ApplyShoppingCart();
-            if (!OrderInsertCommand.Insert(order))
+            if (!OrderInsertCommand.Execute(order))
             {
                 result.Log(LogLevel.Error, $"Unsuccesful storing to db");
             } else
             {
                 customer.ShoppingCart.Clear();
-                CustomerUpdateCommand.Update(customer);
+                CustomerUpdateCommand.Execute(customer);
             }
 
             result.ResultObject = order;

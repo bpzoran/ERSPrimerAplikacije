@@ -58,7 +58,7 @@ namespace ApplicationTest.Order.Handlers
             customerFindByIdQueryMock = new Mock<ICustomerFindByIdQuery>();
             customerFindByIdQueryMock.Setup(t => t.FindById(It.IsAny<object>())).Returns(customer);
             customerUpdateCommandMock = new Mock<ICustomerUpdateCommand>();
-            customerUpdateCommandMock.Setup(t => t.Update(It.IsAny<CustomerEntity>())).Returns(true);
+            customerUpdateCommandMock.Setup(t => t.Execute(It.IsAny<CustomerEntity>())).Returns(true);
             productFindByIdQueryMock = new Mock<IProductFindByIdQuery>();
             productFindByIdQueryMock.Setup(t => t.FindById(It.IsAny<object>())).Returns(product);
             localStockGetDefaultLocalStockQueryMock = new Mock<ILocalStockGetDefaultLocalStockQuery>();
