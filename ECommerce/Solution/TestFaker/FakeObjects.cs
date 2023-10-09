@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ApplicationTest
+namespace TestFaker
 {
     public class FakeObjects
     {
@@ -64,6 +64,21 @@ namespace ApplicationTest
                 WebServiceURL = "www.someaddress.com",
                 Supplier = GetSupplier()
 
+            };
+        }
+
+        public static OrderEntity GetOrder(CustomerEntity customer)
+        {
+            return new OrderEntity()
+            {
+                Customer = customer,
+                InitialTotalPrice = 1000,
+                FinalTotalPrice = 1000,
+                OrderTime = new DateTime(2023, 10, 9, 22, 0, 0),
+                OrderId = "1",
+                ProceedingCity = "Novi Sad",
+                ProceedingHouseNumber = "16",
+                ProceedingStreet = "Marsala Tita"
             };
         }
     }
