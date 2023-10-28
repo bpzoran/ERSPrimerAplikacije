@@ -11,6 +11,15 @@ using Application.Stock.SupplierStock.Queries;
 
 namespace Application.Order.Handlers
 {
+    // SOLID Explanation: Dependency Inversion Principle
+    // High-level modules should not  depend on low-level modules.	Both  should depend on abstractions
+    // Ovo (Application projekat) je alikativni deo kome cijim metodama direktno pristupa klijent (na primer web ili desktop). Mozemo da kazemo da je ovo High-Level modul.
+    // Sa druge strane imamo BusinessImpl projekat koji prema toku podataka sledi posle  Application projekta, tako da mozemo da kazemo da je u pitanju Low-Level modul.
+    // A imamo i sloj prezistencije (RepoInMemory), koji je jos vide Low-Level modul.
+    // Prema klasicnoj arhitekturi, Application bi zavisio od BusinessImpl i od RepoInMemory jer ih koristi. Medjutim prema cistoj arhitekturi to nije slucaj. 
+    // Na priemr ova klasa ne zavisi ni od jedne klase iz BusineeImpl ilki RepoInMemory. Ona zavisi samo od apstrakcija (interfejsi ILocalStockGetDefaultLocalStockQuery,
+    // ICustomerFindByIdQuery, IStockWithdrawHandler...). Koja ce tacno ipmplementacija biti koriscena to ce odrediti klijentski deo aplikacije (na primer Web ili Desktop).
+    // Tako moze da se injectuje bilo koja druga implementacija i da se aplikacija menja u skladu sa potrebama, a time ce odrzavanje biti lakse, a ceo aplikativni sistem stabilniji.
     public class AddToShoppingCartHandler
     {
 
