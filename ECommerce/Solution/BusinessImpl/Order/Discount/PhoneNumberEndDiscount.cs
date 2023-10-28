@@ -3,6 +3,15 @@ using Application.Order.Interfaces;
 
 namespace BusinessImpl.Order.Discount
 {
+    // SOLID explanation
+    // Single Resonsibility Principle
+    // Umesto da imamo u jednoj klasi celokupnu funkcionalnost u vezi sa popustima,
+    // funkcionalnosti smo razbili po klasama.
+    // Tako u ovoj klasi imamo samo jednu funkcionalnost koja odredjuje procenat popusta na osnovu broja telefona.
+    // Da smo imali u jednoj klasi i odredjivanje popusta na osnovu broja telefona i kreiranje popusta na osnovu vremena,
+    // sta bi bilo u situaciji da nam korisnik iznese novi zahtev u vezi sa popustom - na primer obrne se popust u odnosu na parne i neparne krajeve broja telefona?
+    // Tada bismo morali da menjamo klasu koja sadrzi nacin odredjivanja popusta na osnovu vremena, iako izmena nema nikakve veze sa tom funkcionalnoscu.
+    // Posledicno bi moglo da dodje do gresaka, neki testovi bi mozda popadali itd.
     public class PhoneNumberEndDiscount : IDiscount
     {
         private float discountPercentageDefault = 10f;

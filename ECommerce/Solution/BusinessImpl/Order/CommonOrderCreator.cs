@@ -10,6 +10,11 @@ namespace BusinessImpl.Order
 {
     public class CommonOrderCreator : IOrderCreator
     {
+        // SOLID Explanation: Open-Closed Principle
+        // imamo objekat tipa IDiscountCreator koji kreira popust na osnovu nekih zahteva klijenata.
+        // Klijent moze da kaze da umesto popusta na osovu vremena i broja telefona sada hoce popust na osnovu datuma i imena klijenta.
+        // U ovoj klasi za kreiranje narudzbine mi ne bismo morali apsolutno nosta da menjamo. Dovoljno je da kreiramo novi objekat tipa IDiscountCreator i da ga prosledimo ovoj klasi
+        // kroz dependency injection. Tako bi aplikacija bila prosirena, a nijedna klasa ne bi bila promenjena (osim eventualno krajnjeg klijenta koji izvrsava dependency injection).
         protected CustomerEntity customer;
         public ICustomerFindByIdQuery CustomerFindByIdQuery { private get; set; }
         protected ProceedingData proceedingData;        
