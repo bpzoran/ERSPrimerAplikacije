@@ -28,7 +28,6 @@ namespace ApplicationTest.Order.Handlers
         private Mock<ISupplierStockGetDefaultSupplierStockQuery> supplierStockGetDefaultSupplierStockQueryMock;
         private Mock<IStockWithdrawHandler> commonStockWithdrawHandlerMock;
         private Mock<IStockAvailabilityChecker> stockAvailabilityCheckerMock;
-        private Mock<IRepoFactory> repoFactoryMock;
         private CustomerEntity customer;
         private ProductEntity product;
         private SupplierEntity supplier;
@@ -72,19 +71,20 @@ namespace ApplicationTest.Order.Handlers
             commonStockWithdrawHandlerMock.Setup(t => t.WithdrawProduct(It.IsAny<ProductEntity>(), It.IsAny<float>(), It.IsAny<LocalStockEntity>(), It.IsAny<SupplierStockEntity>(), out missingQuantity, res));
             stockAvailabilityCheckerMock = new Mock<IStockAvailabilityChecker>();
             stockAvailabilityCheckerMock.Setup(t => t.CheckAvailability(It.IsAny<ProductEntity>(), It.IsAny<LocalStockEntity>(), It.IsAny<SupplierStockEntity>(), It.IsAny<float>(), It.IsAny<Result>())).Returns(true);
-            repoFactoryMock = new Mock<IRepoFactory>();
-            repoFactoryMock.Setup(t => t.CustomerFindByIdQuery).Returns(customerFindByIdQueryMock.Object);
-            repoFactoryMock.Setup(t => t.CustomerUpdateCommand).Returns(customerUpdateCommandMock.Object);
-            repoFactoryMock.Setup(t => t.ProductFindByIdQuery).Returns(productFindByIdQueryMock.Object);
-            repoFactoryMock.Setup(t => t.LocalStockGetDefaultLocalStockQuery).Returns(localStockGetDefaultLocalStockQueryMock.Object);
-            repoFactoryMock.Setup(t => t.SupplierStockGetDefaultSupplierStockQuery).Returns(supplierStockGetDefaultSupplierStockQueryMock.Object);
 
         }
 
         [Test]
         public void AddToShoppingCart()
         {
-            var testObject = new AddToShoppingCartHandler(repoFactoryMock.Object, commonStockWithdrawHandlerMock.Object, stockAvailabilityCheckerMock.Object);
+            var testObject = new AddToShoppingCartHandler(
+                customerFindByIdQueryMock.Object,
+                customerUpdateCommandMock.Object,
+                productFindByIdQueryMock.Object,
+                localStockGetDefaultLocalStockQueryMock.Object,
+                supplierStockGetDefaultSupplierStockQueryMock.Object,
+                commonStockWithdrawHandlerMock.Object,
+                stockAvailabilityCheckerMock.Object);
             var res = testObject.AddToShoppingCart("1", "1", 5f);
             Assert.AreEqual(res.ResultObject.GetType(), typeof(ShoppingCartEntity));
             Assert.AreEqual(((ShoppingCartEntity)(res.ResultObject)).Count, 1);

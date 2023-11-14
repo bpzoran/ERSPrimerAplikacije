@@ -33,9 +33,9 @@ namespace WebAPI.Controllers
         {
             this.SupplierStockChecker = new SupplierStockChecker(SupplierStockService);
             this.StockWithdrawHandler = new CommonStockWithdrawHandler(
-                new LocalStockWithdrawHandler(repoFactory),
+                new LocalStockWithdrawHandler(repoFactory.LocalStockUpdateCommand, repoFactory.ProductInsertIfNotExistsCommand),
                 new SupplierStockWithdrawHandler(SupplierStockService),
-                new LocalStockAddHandler(repoFactory),
+                new LocalStockAddHandler(repoFactory.LocalStockUpdateCommand, repoFactory.ProductInsertIfNotExistsCommand),
                 new SupplierStockAddHandler(SupplierStockService)
                 );
             this.StockAvailabilityChecker = new StockAvailabilityChecker(LocalStockChecker, SupplierStockChecker);
@@ -45,7 +45,11 @@ namespace WebAPI.Controllers
         public ProductItemsResult Get(string customerId, string productId, float quantity)
         {
             var addToShoppingCartHandler = new AddToShoppingCartHandler(
-                repoFactory,
+                repoFactory.CustomerFindByIdQuery,
+                repoFactory.CustomerUpdateCommand,
+                repoFactory.ProductFindByIdQuery,
+                repoFactory.LocalStockGetDefaultLocalStockQuery,
+                repoFactory.SupplierStockGetDefaultSupplierStockQuery,
                 StockWithdrawHandler,
                 StockAvailabilityChecker
                 );

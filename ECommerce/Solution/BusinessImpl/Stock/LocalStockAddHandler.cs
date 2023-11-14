@@ -12,10 +12,10 @@ namespace BusinessImpl.Stock
         public IProductInsertIfNotExistsCommand ProductInsertIfNotExistsCommand { private get; set; }
         public ILocalStockUpdateCommand StockUpdateCommand { private get; set; }
 
-        public LocalStockAddHandler(IRepoFactory repoFactory) : base()
+        public LocalStockAddHandler(ILocalStockUpdateCommand localStockUpdateCommand, IProductInsertIfNotExistsCommand productInsertIfNotExistsCommand) : base()
         {
-            StockUpdateCommand = repoFactory.LocalStockUpdateCommand;
-            ProductInsertIfNotExistsCommand = repoFactory.ProductInsertIfNotExistsCommand;
+            StockUpdateCommand = localStockUpdateCommand;
+            ProductInsertIfNotExistsCommand = productInsertIfNotExistsCommand;
         }
 
         public void AddProduct(ProductEntity product, StockEntity stock, float productQuantity)
