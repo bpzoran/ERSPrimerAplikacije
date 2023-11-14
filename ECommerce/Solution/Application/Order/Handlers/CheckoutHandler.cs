@@ -20,11 +20,16 @@ namespace Application.Order.Handlers
         public ProceedingData ProceedingData { private get; set; }
         private readonly CustomerEntity customer;
 
-        public CheckoutHandler(IRepoFactory repoFactory, IOrderCreator orderCreator, ITimeAssigner timeAssigner, ProceedingData proceedingData)
+        public CheckoutHandler(ICustomerInsertOrUpdateCommand customerInsertOrUpdateCommands,
+            ICustomerUpdateCommand customerUpdateCommand,
+            IOrderInsertCommand orderInsertCommand,
+            IOrderCreator orderCreator, 
+            ITimeAssigner timeAssigner, 
+            ProceedingData proceedingData)
         {
-            CustomerInsertOrUpdateCommand = repoFactory.CustomerInsertOrUpdateCommand;
-            CustomerUpdateCommand = repoFactory.CustomerUpdateCommand;
-            OrderInsertCommand = repoFactory.OrderInsertCommand;
+            CustomerInsertOrUpdateCommand = customerInsertOrUpdateCommands;
+            CustomerUpdateCommand = customerUpdateCommand;
+            OrderInsertCommand = orderInsertCommand;
             this.TimeAssigner = timeAssigner;
             this.OrderCreator = orderCreator;
             this.ProceedingData = proceedingData;

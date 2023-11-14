@@ -14,10 +14,10 @@ namespace BusinessImpl.Stock
         public IProductInsertIfNotExistsCommand ProductInsertIfNotExistsCommand { private get; set; }
 
 
-        public LocalStockWithdrawHandler(IRepoFactory repoFactory) : base()
+        public LocalStockWithdrawHandler(ILocalStockUpdateCommand stockUpdateCommand, IProductInsertIfNotExistsCommand productInsertIfNotExistsCommand) : base()
         {
-            StockUpdateCommand = repoFactory.LocalStockUpdateCommand;
-            ProductInsertIfNotExistsCommand = repoFactory.ProductInsertIfNotExistsCommand;
+            StockUpdateCommand = stockUpdateCommand;
+            ProductInsertIfNotExistsCommand = productInsertIfNotExistsCommand;
         }
 
 

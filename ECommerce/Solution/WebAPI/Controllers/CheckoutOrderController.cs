@@ -43,7 +43,12 @@ namespace WebAPI.Controllers
                 new HappyHourDiscountCreator(
                 new PhoneNumberEndDiscount(repoFactory.CustomerFindByIdQuery, proceedingData.ProceedingCustomerId), 
                 new FixedDiscount()), TimeAssigner, proceedingData);
-            var checkoutHandler = new CheckoutHandler(repoFactory, orderCreator, this.TimeAssigner, proceedingData) { TimeAssigner = TimeAssigner };
+            var checkoutHandler = new CheckoutHandler(repoFactory.CustomerInsertOrUpdateCommand,
+                repoFactory.CustomerUpdateCommand,
+                repoFactory.OrderInsertCommand,
+                orderCreator, 
+                this.TimeAssigner, 
+                proceedingData) { TimeAssigner = TimeAssigner };
             Result result = checkoutHandler.Checkout();
             if ((result == null || result.ResultObject == null || !(result.ResultObject is OrderEntity)))
             {

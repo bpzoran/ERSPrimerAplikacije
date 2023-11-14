@@ -23,16 +23,20 @@ namespace Application.Order.Handlers
         public IStockAvailabilityChecker StockAvailabilityChecker { private get; set; }
 
         public AddToShoppingCartHandler(
-            IRepoFactory repoFactory,
+            ICustomerFindByIdQuery customerFindByIdQuery,
+            ICustomerUpdateCommand customerUpdateCommand,
+            IProductFindByIdQuery productFindByIdQuery,
+            ILocalStockGetDefaultLocalStockQuery localStockGetDefaultLocalStockQuery,
+            ISupplierStockGetDefaultSupplierStockQuery supplierStockGetDefaultSupplierStockQuery,
             IStockWithdrawHandler commonStockWithdrawHandler,
             IStockAvailabilityChecker stockAvailabilityChecker
             ) : base()
         {
-            this.CustomerFindByIdQuery = repoFactory.CustomerFindByIdQuery;
-            this.CustomerUpdateCommand = repoFactory.CustomerUpdateCommand;
-            this.ProductFindByIdQuery = repoFactory.ProductFindByIdQuery;
-            this.StockGetDefaultLocalStockQuery = repoFactory.LocalStockGetDefaultLocalStockQuery;
-            this.SupplierStockGetDefaultSupplierStockQuery = repoFactory.SupplierStockGetDefaultSupplierStockQuery;
+            this.CustomerFindByIdQuery = customerFindByIdQuery;
+            this.CustomerUpdateCommand = customerUpdateCommand;
+            this.ProductFindByIdQuery = productFindByIdQuery;
+            this.StockGetDefaultLocalStockQuery = localStockGetDefaultLocalStockQuery;
+            this.SupplierStockGetDefaultSupplierStockQuery = supplierStockGetDefaultSupplierStockQuery;
             this.CommonStockWithdrawHandler = commonStockWithdrawHandler;
             this.StockAvailabilityChecker = stockAvailabilityChecker;
         }
